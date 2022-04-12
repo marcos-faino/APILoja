@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework import permissions
+from .permissions import VerSuperUsuario
 
 from .models import Produto, Categoria, Avaliacao
 from .serializers import ProdutoSerializer, CategoriaSerializer, AvaliacaoSerializer
@@ -77,7 +78,10 @@ API V2
 
 
 class ProdutoViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.DjangoModelPermissions,)
+    permission_classes = (
+        VerSuperUsuario,
+        permissions.DjangoModelPermissions
+    )
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
 
